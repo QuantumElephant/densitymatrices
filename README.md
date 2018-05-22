@@ -4,6 +4,28 @@ Python package for optimising density matrices.
 
 ## Getting Started
 
+Install this package with pip. Jen recommends a conda environment.
+
+https://conda.io/miniconda.html
+
+Once you have miniconda installed:
+```
+$ conda create -n var2dm python=2 numpy
+```
+
+To switch on the environment, use:
+
+```
+$ source activate var2dm
+```
+
+Then install the horton dependency and the package:
+
+```
+$ conda install -c theochem horton
+$ pip install -e /path/to/densitymatrices
+```
+
 Jen is experimenting with pipenv. Feel free to install it on your machine.
 
 ```
