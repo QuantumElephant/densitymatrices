@@ -14,14 +14,14 @@ install:
     - conda update -q conda
       # Useful for debugging any issues with conda
     - conda info -a
-    - conda create -n var2dm python=$TRAVIS_PYTHON_VERSION numpy scipy nose matplotlib pylint pycodestyle pydocstyle
+
+    # Create environment and install dependencies
+    - conda config --append channels conda-forge
+    - conda create -n var2dm python=$TRAVIS_PYTHON_VERSION numpy scipy nose matplotlib pylint pycodestyle
+    - conda install -c pydocstyle
     - conda install -c theochem gbasis
     - conda install -c theochem iodata
     - source active var2DM
-
-    # Install Dependencies
-    #- pip install numpy scipy nose matplotlib
-    #- pip install pylint, pycodestyle pydocstyle
 
 script:
     - nosetests --with-coverage --cover-package=densitymatrices -v ./var2DM/
