@@ -18,7 +18,7 @@ install:
     # Create environment and install dependencies
     - conda config --append channels conda-forge
     - conda create -n var2dm python=$TRAVIS_PYTHON_VERSION numpy scipy nose matplotlib pylint pycodestyle
-    - conda install -c pydocstyle python=$TRAVIS_PYTHON_VERSION
+    - conda install -c conda-forge pydocstyle python=$TRAVIS_PYTHON_VERSION
     - conda install -c theochem gbasis
     - conda install -c theochem iodata
     - source active var2DM
