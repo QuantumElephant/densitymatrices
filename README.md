@@ -4,13 +4,20 @@ Python package for optimising density matrices.
 
 ## Getting Started
 
-Install this package with pip. Jen recommends a conda environment.
+Download the github repository:
+
+```
+$ git clone https://github.com/QuantumElephant/densitymatrices.git
+```
+
+Using a conda environment is recommended for managing project dependencies. Download miniconda here:
 
 https://conda.io/miniconda.html
 
-Once you have miniconda installed:
+Once you have miniconda installed, create a new virtual environment for the project:
+
 ```
-$ conda create -n var2dm python=2 numpy
+$ conda create -n var2dm python=3 numpy
 ```
 
 To switch on the environment, use:
@@ -19,40 +26,64 @@ To switch on the environment, use:
 $ source activate var2dm
 ```
 
-Then install the horton dependency and the package:
+To deactivate the environment, use:
 
 ```
-$ conda install -c theochem horton
-$ pip install -e /path/to/densitymatrices
+(var2dm) $ source deactivate
 ```
 
-Jen is experimenting with pipenv. Feel free to install it on your machine.
+### Prerequisites
+
+Requirements right now are python 3, numpy, iodata, and gbasis. The last two requirements are part of the Horton package from theochem.
+
+### Installing
+
+With the virtual environment activated, install the horton dependencies (gbasis and iodata) followed by the package:
+
+```
+(var2dm) $ conda install -c theochem gbasis
+(var2dm) $ conda install -c theochem iodata
+(var2dm) $ pip install -e /path/to/densitymatrices
+```
+
+Now the package can be imported in python:
+
+```
+(var2dm) $ python
+Python 3.6.5 |Anaconda, Inc.| (date-time stripped)
+[GCC 7.2.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import var2DM
+>>>
+```
+
+## Running the tests
+
+Install nosetests and specify the package name:
+```
+(var2dm) $ conda install nose
+(var2dm) $ nosetests -v var2DM
+```
+
+## Pipenv Notes
+
+Jen is experimenting with pipenv. Feel free to install it on your machine. This installation method won't work until the project dependencies are available via pip install.
 
 ```
 $ pip3 install --user pipenv
 $ cd densitymatrices
 $ pipenv --python 3.6
 $ pipenv shell
-$ pipenv install package=version
-$ pipenv install --dev package=version
+(var2dm_env) $ pipenv install package=version
+(var2dm_env) $ pipenv install --dev package=version
 $ exit
 ```
-
-### Prerequisites
-
-Requirements right now are numpy and python 3.6.
-
-### Installing
 
 With your environment switched on (pipenv shell):
 
 ```
-pipenv install
+(var2dm_env) $ pipenv install
 ```
-
-## Running the tests
-
-Not implemented yet...
 
 ## Authors
 

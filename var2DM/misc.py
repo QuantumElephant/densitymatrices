@@ -1,14 +1,15 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 
-# need python2 because horton does not yet support
-# python3 ....
+# switching to using gbasis and iodata modules
+# from horton (thus using python3)
 
 """
 Miscellaneous functions for density matrix code.
 ROUGH DRAFT
 """
 
-import horton as ht
+import gbasis as gb
+import iodata as iod
 
 def collapse_density_matrix(input_matrix):
     """Collapse a density matrix.
@@ -65,7 +66,7 @@ def prep_electron_int(coords, nums, chrgs, basis):
 
     """
     # use horton to create a gaussian basis set
-    obasis = ht.get_gobasis(coords, nums, basis)
+    obasis = gb.get_gobasis(coords, nums, basis)
     # use horton to compute the gaussian integrals
     olp = obasis.compute_overlap()
     kin = obasis.compute_kinetic()
@@ -78,7 +79,7 @@ def prep_electron_int(coords, nums, chrgs, basis):
     # use horton to make an initial guess for the electron
     # integrals
     one = kin + na
-    print(ht.guess_core_hamiltonian(olp, one, a_orbs))
+    #print(ht.guess_core_hamiltonian(olp, one, a_orbs))
 
 def make_hamiltonian(el_int1, el_int2):
     """Generate a hamiltonian operator.
