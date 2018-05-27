@@ -21,7 +21,7 @@ install:
     - conda install -c conda-forge pydocstyle python=$TRAVIS_PYTHON_VERSION
     - conda install -c theochem gbasis
     - conda install -c theochem iodata
-    - source activate var2DM
+    - source activate var2dm
 
 script:
     - nosetests --with-coverage --cover-package=densitymatrices -v ./var2DM/
