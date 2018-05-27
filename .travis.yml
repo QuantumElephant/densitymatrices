@@ -16,11 +16,11 @@ install:
     - conda info -a
     - conda create -n var2dm python=$TRAVIS_PYTHON_VERSION numpy scipy
     nose matplotlib pylint pycodestyle pydocstyle
+    - conda install -c theochem gbasis
+    - conda install -c theochem iodata
     - source active var2DM
 
     # Install Dependencies
-    #- conda install -c theochem gbasis
-    #- conda install -c theochem iodata
     #- pip install numpy scipy nose matplotlib
     #- pip install pylint, pycodestyle pydocstyle
 
