@@ -11,6 +11,8 @@ ROUGH DRAFT
 import gbasis as gb
 import iodata as iod
 
+__all__ = ['prep_electron_int']
+
 def collapse_density_matrix(input_matrix):
     """Collapse a density matrix.
 
@@ -70,11 +72,18 @@ def prep_electron_int(coords, nums, chrgs, basis):
     # use horton to compute the gaussian integrals
     olp = obasis.compute_overlap()
     kin = obasis.compute_kinetic()
-    na = obasis.compute_nuclear_attraction(coords, nums, chrgs)
+    na = obasis.compute_nuclear_attraction(coords, chrgs)
     er = obasis.compute_electron_repulsion()
 
+    print(olp.shape)
+    print(kin.shape)
+    print(na.shape)
+    print(er.shape)
+
     # use horton to create alpha orbitals
-    a_orbs = ht.Orbitals(obasis.nbasis)
+    # doesn't work
+    #a_orbs = gb.load_orbsa_coeffs(obasis)
+    #a_orbs = gb.Orbitals(obasis.nbasis)
 
     # use horton to make an initial guess for the electron
     # integrals
