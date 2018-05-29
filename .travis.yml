@@ -1,0 +1,37 @@
+language: python
+
+python:
+    # - 3.5
+    - 3.6
+
+addons:
+    apt:
+      update: true
+
+install:
+    # Install Conda
+    - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+    - bash miniconda.sh -b -p $HOME/miniconda
+    - export PATH="$HOME/miniconda/bin:$PATH"
+    - hash -r
+    - conda config --set always_yes yes --set changeps1 no
+    - conda update -q conda
+      # Useful for debugging any issues with conda
+    - conda info -a
+
+    # Create environment and install dependencies
+    - conda config --append channels conda-forge
+    - conda create -n var2dm python=$TRAVIS_PYTHON_VERSION numpy scipy nose matplotlib pylint pycodestyle
+    - conda install -c conda-forge pydocstyle python=$TRAVIS_PYTHON_VERSION
+    - conda install -c theochem gbasis
+    - conda install -c theochem iodata
+    - source activate var2dm
+
+script:
+    - nosetests --with-coverage --cover-package=densitymatrices -v ./var2DM/
+    - pylint ./var2DM/ --errors-only
+    - pycodestyle ./var2DM/ --max-line-length=100
+    - pydocstyle ./var2DM/
+
+notifications:
+  email: false
