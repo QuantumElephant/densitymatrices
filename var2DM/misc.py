@@ -13,6 +13,58 @@ import iodata as iod
 
 __all__ = ['prep_electron_int']
 
+def first_dm_hf(norb, nelec):
+    """Calculate fist order density matrix for HF.
+
+    Parameters
+    ----------
+    norb : integer 
+        Total number of molecular orbitals. 
+    nelec : integer 
+        Total number of electrons or occupied molecular orbitals. 
+
+    Returns
+    -------
+    first_dm : np.array(shape=(norb, norb))
+        The first order density matrix.
+
+    """
+    first_dm = np.zeros(norb, norb)
+    for i in range (0, nelec + 1):
+        first_dm[i, i] = 1 
+
+    return first_dm
+
+
+def second_dm_hf(first_dm, norb, nelec):
+    """Calculate second order density matrix for HF.
+
+    Parameters
+    ----------
+    first_dm : np.array(shape=(norb, norb))
+    norb : integer 
+        Total number of molecular orbitals. 
+    nelec : integer 
+        Total number of electrons or occupied molecular orbitals. 
+
+    Returns
+    -------
+    second_dm : np.array(shape=(norb^2, norb^2))
+        The second order density matrix.
+    """
+    second_dm = np.zeros(norb**2, norb**2)
+    for i in range (0, nelec + 1):
+        for j in range (0, nelec + 1):
+            idx_a = i*nelec + j
+            for k in range (0, nelec + 1):
+                for l in range (0, nelec + 1):
+                    idx_b = k*nelec + l
+                    second_dm[idx_a, idx_b] = first_dm[i, k] * first_dm[j, l] 
+                    second_dm[idx_a, idx_b] -= first_dm[i, l] * first_dm[j, k] 
+
+    return second_dm
+
+
 def collapse_density_matrix(input_matrix):
     """Collapse a density matrix.
 
