@@ -1,0 +1,24 @@
+# Distribution / Packaging
+.coverage
+
+# Documentation
+docs/html/
+docs/latex/
+docs/man/
+docs/xml/
+docs/_build/
+
+# Editor junk
+tags
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-v][a-z]
+[._]sw[a-p]
+*~
+\#*\#
+.\#*
+.ropeproject
+.idea/
+.spyderproject
+.spyproject
+.vscode/
