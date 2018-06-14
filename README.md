@@ -17,7 +17,7 @@ https://conda.io/miniconda.html
 Once you have miniconda installed, create a new virtual environment for the project:
 
 ```
-$ conda create -n var2dm python=3 numpy
+$ conda create -n var2dm python=3
 ```
 
 To switch on the environment, use:
@@ -34,15 +34,40 @@ To deactivate the environment, use:
 
 ### Prerequisites
 
-Requirements right now are python 3, numpy, iodata, and gbasis. The last two requirements are part of the Horton package from theochem.
+Requirements right now are python 3.6, numpy, iodata, and gbasis. The last two requirements are part of the Horton package from theochem.
 
-### Installing
+There are also some requirements for the semi-definite programming portion of this package: six, cvxopt, and picos.
 
-With the virtual environment activated, install the horton dependencies (gbasis and iodata) followed by the package:
+### Installing Prerequisites
+
+Activate the conda environment and enter the following commands:
 
 ```
+(var2dm) $ conda install six
+(var2dm) $ conda install -c conda-forge cvxopt
 (var2dm) $ conda install -c theochem gbasis
 (var2dm) $ conda install -c theochem iodata
+```
+
+Note: cvxopt requires numpy to be installed, and so conda should install that package automatically.
+
+For installing picos, download the source tarball from here: 
+
+http://picos.zib.de/download.html
+
+Then, go to where the package was saved, and extract the files. You may need to change the version number depending on what file you downloaded.
+
+```
+(var2dm) $ tar -xzvf PICOS-1.1.2.tar.gz
+(var2dm) $ cd PICOS-1.1.2
+(var2dm) $ pip install -e ./
+```
+
+### Installing var2DM
+
+With the virtual environment activated, install the package locally:
+
+```
 (var2dm) $ pip install -e /path/to/densitymatrices
 ```
 
