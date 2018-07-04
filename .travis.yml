@@ -21,14 +21,14 @@ install:
 
     # Create environment and install dependencies
     - conda config --append channels conda-forge
-    - conda create -n var2dm python=$TRAVIS_PYTHON_VERSION numpy scipy nose matplotlib pylint pycodestyle
+    - conda create -n var2dm python=$TRAVIS_PYTHON_VERSION numpy scipy nose matplotlib pylint pycodestyle coverage
+    - source activate var2dm
     - conda install -c conda-forge pydocstyle python=$TRAVIS_PYTHON_VERSION
     - conda install -c theochem gbasis
     - conda install -c theochem iodata
-    - source activate var2dm
 
 script:
-    - nosetests --with-coverage --cover-package=densitymatrices -v ./var2DM/
+    - nosetests --with-coverage --cover-package=densitymatrices -v var2DM
     - pylint ./var2DM/ --errors-only
     - pycodestyle ./var2DM/ --max-line-length=100
     - pydocstyle ./var2DM/
