@@ -136,6 +136,7 @@ def prep_electron_int(coords, nums, chrgs, basis):
     print(kin.shape)
     print(na.shape)
     print(er.shape)
+    print(type(obasis))
 
     # use horton to create alpha orbitals
     # doesn't work
@@ -146,7 +147,7 @@ def prep_electron_int(coords, nums, chrgs, basis):
     # integrals
     one = kin + na
     # print(ht.guess_core_hamiltonian(olp, one, a_orbs))
-
+    print(one.shape)
 
 def make_hamiltonian(el_int1, el_int2):
     """Generate a hamiltonian operator.
