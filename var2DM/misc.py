@@ -5,13 +5,69 @@
 
 """
 Miscellaneous functions for density matrix code.
+
 ROUGH DRAFT
 """
 
 import gbasis as gb
 import iodata as iod
+import numpy as np
 
-__all__ = ['prep_electron_int']
+__all__ = ['first_dm_hf', 'second_dm_hf', 'prep_electron_int']
+
+
+def first_dm_hf(norb, nelec):
+    """Calculate fist order density matrix for HF.
+
+    Parameters
+    ----------
+    norb : integer
+        Total number of molecular orbitals.
+    nelec : integer
+        Total number of electrons or occupied molecular orbitals.
+
+    Returns
+    -------
+    first_dm : np.array(shape=(norb, norb))
+        The first order density matrix.
+
+    """
+    first_dm = np.zeros((norb, norb))
+    for i in range(0, nelec):
+        first_dm[i, i] = 1
+
+    return first_dm
+
+
+def second_dm_hf(first_dm, norb, nelec):
+    """Calculate second order density matrix for HF.
+
+    Parameters
+    ----------
+    first_dm : np.array(shape=(norb, norb))
+    norb : integer
+        Total number of molecular orbitals.
+    nelec : integer
+        Total number of electrons or occupied molecular orbitals.
+
+    Returns
+    -------
+    second_dm : np.array(shape=(norb^2, norb^2))
+        The second order density matrix.
+
+    """
+    second_dm = np.zeros((norb**2, norb**2))
+    for i in range(0, nelec):
+        for j in range(0, nelec):
+            idx_a = i*nelec + j
+            for k in range(0, nelec):
+                for l in range(0, nelec):
+                    idx_b = k*nelec + l
+                    second_dm[idx_a, idx_b] = first_dm[i, k] * first_dm[j, l]
+                    second_dm[idx_a, idx_b] -= first_dm[i, l] * first_dm[j, k]
+
+    return second_dm
+
 
 def collapse_density_matrix(input_matrix):
     """Collapse a density matrix.
@@ -28,6 +84,7 @@ def collapse_density_matrix(input_matrix):
 
     """
     pass
+
 
 def expand_density_matrix(input_matrix):
     """Expand a density matrix.
@@ -52,7 +109,7 @@ def prep_electron_int(coords, nums, chrgs, basis):
 
     Parameters
     ----------
-    coords : numpy.array(N, 3) 
+    coords : numpy.array(N, 3)
         float array with Cartesian coordinates (xyz) of the
         atoms, where N is the number of atoms.
 
@@ -83,14 +140,14 @@ def prep_electron_int(coords, nums, chrgs, basis):
 
     # use horton to create alpha orbitals
     # doesn't work
-    #a_orbs = gb.load_orbsa_coeffs(obasis)
-    #a_orbs = gb.Orbitals(obasis.nbasis)
+    # a_orbs = gb.load_orbsa_coeffs(obasis)
+    # a_orbs = gb.Orbitals(obasis.nbasis)
 
     # use horton to make an initial guess for the electron
     # integrals
     one = kin + na
+    # print(ht.guess_core_hamiltonian(olp, one, a_orbs))
     print(one.shape)
-    #print(ht.guess_core_hamiltonian(olp, one, a_orbs))
 
 def make_hamiltonian(el_int1, el_int2):
     """Generate a hamiltonian operator.
@@ -131,5 +188,3 @@ def get_energy(hamiltonian, density_matrix):
 
     """
     pass
-
-
